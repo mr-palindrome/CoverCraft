@@ -1,0 +1,20 @@
+# Ignore node_modules directory
+node_modules/
+
+# Ignore build artifacts
+dist/
+
+# Ignore any compiled output
+*.min.js
+*.min.css
+
+# Ignore any temporary files
+*.log
+
+# Ignore IDE and editor-specific files
+.vscode/
+.idea/
+
+# Ignore system files that might be created on different platforms
+.DS_Store
+Thumbs.db
