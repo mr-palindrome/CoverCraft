@@ -1,5 +1,5 @@
 <p align="center">
-<img src="./CoverCraft-nobg.png" width="50%" height="100%">
+<img src="CoverCraft-nobg.png" width="50%" height="100%">
 </p>
 
 <p align="center">
