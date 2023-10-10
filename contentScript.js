@@ -1,8 +1,16 @@
 
-const apiKey = "makersuite api key";
-const userAbout = `
-          about you
-          `;
+const apiKey = "api_key";
+let userAbout = "";
+
+const fetchUserAbout = () => {
+    return new Promise((resolve) => {
+        chrome.storage.sync.get(['userAbout'], function (result) {
+            userAbout = result.userAbout || '';
+            console.log('User About func:', userAbout);
+            resolve(userAbout);
+        });
+    });
+}
 
 (() => {
 
@@ -49,7 +57,7 @@ const userAbout = `
       }
     };
 
-    const newJobLoaded = () => {
+    const newJobLoaded = async () => {
       const coverCraftBtn = document.createElement("img");
 
       coverCraftBtn.src = chrome.runtime.getURL("logo_arrow.png");
@@ -70,6 +78,20 @@ const userAbout = `
         }
       );
     };
+
+    const createPrompt = async (jobDescription) => {
+        userAbout = await fetchUserAbout();
+        console.log("userAbout", userAbout);
+
+        const textBody =
+            "Create a cover letter for the following job description:\n" +
+            jobDescription +
+            "\n using following about" +
+            userAbout;
+
+        return textBody.replace(/"/g, "'");
+    }
+
     async function writeCoverLetter() {
 
       attemptToGetJobDescription(
@@ -89,45 +111,44 @@ const userAbout = `
     }
 
 
+    async function sendJobDescriptionToServer(jobDescription) {
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta2/models/text-bison-001:generateText?key=${apiKey}`;
+        const textBody = await createPrompt(jobDescription);
+
+        console.log('text body: ',textBody);
+        const payload = {
+            prompt: {
+                text: textBody,
+            },
+        };
+
+        try {
+            const response = await fetch(apiUrl, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(payload),
+            });
+
+            const data = await response.json();
+
+            if (data.candidates && data.candidates.length > 0) {
+                return data.candidates[0].output;
+            } else {
+                console.log("No cover letter found in the API response.");
+                return null;
+            }
+        } catch (error) {
+            console.error("Error sending job description to the server:", error);
+            return null;
+        }
+    }
+
+
+
+
+
     newJobLoaded();
   })();
 
-const createPrompt = (jobDescription) => {
-    const textBody =
-        "Create a cover letter for the following job description:\n" +
-        jobDescription +
-        "\n using following about" +
-        userAbout;
-    return textBody.replace(/"/g, "'");
-}
-async function sendJobDescriptionToServer(jobDescription) {
-    const apiUrl = `https://generativelanguage.googleapis.com/v1beta2/models/text-bison-001:generateText?key=${apiKey}`;
-    const textBody = createPrompt(jobDescription);
-    const payload = {
-        prompt: {
-            text: textBody,
-        },
-    };
-
-    try {
-        const response = await fetch(apiUrl, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(payload),
-        });
-
-        const data = await response.json();
-
-        if (data.candidates && data.candidates.length > 0) {
-            return data.candidates[0].output;
-        } else {
-            console.log("No cover letter found in the API response.");
-            return null;
-        }
-    } catch (error) {
-        console.error("Error sending job description to the server:", error);
-        return null;
-    }
-}
