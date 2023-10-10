@@ -2,7 +2,6 @@ const fetchUserAbout = () => {
     return new Promise((resolve) => {
         chrome.storage.sync.get(['userAbout'], function (result) {
             userAbout = result.userAbout || '';
-            console.log('User About func:', userAbout);
             resolve(userAbout);
         });
     });
@@ -50,7 +49,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         saveButton.addEventListener('click', () => {
             const userAbout = userAboutInput.value;
             chrome.storage.sync.set({ userAbout }, function () {
-                console.log('User About saved:', userAbout);
             });
         });
 

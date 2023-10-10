@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "CoverCraft",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Generate cover letters based on job board job descriptions.",
   "permissions": [
     "activeTab",
@@ -17,10 +17,10 @@
     "default_title": "CoverCraft"
   },
   "icons": {
-    "16": "logo.png",
-    "32": "logo.png",
-    "48": "logo.png",
-    "128": "logo.png"
+    "16": "assets/logo.png",
+    "32": "assets/logo.png",
+    "48": "assets/logo.png",
+    "128": "assets/logo.png"
   },
   "content_scripts": [
     {
@@ -31,10 +31,9 @@
   "web_accessible_resources": [
     {
       "resources": [
-        "bookmark.png",
-        "logo.png",
-        "logo_arrow.png",
-        "logo1.png"
+        "assets/logo.png",
+        "assets/logo_arrow.png",
+        "assets/logo1.png"
       ],
       "matches": ["https://*.wellfound.com/*"]
     }

@@ -1,0 +1,84 @@
+body {
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 90vh;
+    margin: 0;
+    background-color: #f0f0f0;
+}
+
+.navbar img {
+    padding: 10vh 0 0 0;
+    max-width: 120px;
+    height: auto;
+}
+
+.content {
+    text-align: center;
+}
+
+.content h1 {
+    font-size: 3em; /* Adjusted font size */
+    margin: 0.5em 0; /* Adjusted margin */
+}
+
+.open-btn {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(90deg, #122E50 0%, #335b92 100%);
+    border: none;
+    color: white;
+    padding: 10px 20px; /* Adjusted padding */
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1.5em; /* Adjusted font size */
+    margin: 2em 0; /* Adjusted margin */
+    cursor: pointer;
+    border-radius: 12px;
+    transition: background 0.3s;
+}
+
+.open-btn:hover {
+    background: linear-gradient(90deg, #335b92 0%, #122E50 100%);
+}
+
+.footer {
+    text-align: center;
+    padding: 20px;
+    width: 100%;
+    color: black;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.footer div {
+    display: flex;
+    align-items: center;
+}
+
+.footer span {
+    margin: 0 10px;
+}
+
+.footer a.footer-link {
+    text-decoration: none;
+    color: black;
+    margin: 0 10px;
+}
+
+.social-logo {
+    width: 30px;
+    height: 30px;
+    margin: 0 10px;
+}
+
+.footer a {
+    text-decoration: none;
+    color: black;
+    padding: 10px;
+}
